@@ -21,6 +21,10 @@ menu:
       name: Tags
       url: /tags/
       weight: 4
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 5
 
 enableInlineShortcodes: true
 enableRobotsTXT: true
