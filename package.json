@@ -1,0 +1,8 @@
+{
+  "name": "blog",
+  "author": "x-color",
+  "license": "MIT",
+  "dependencies": {
+    "zenn-cli": "^0.1.80"
+  }
+}
