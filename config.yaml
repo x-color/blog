@@ -4,10 +4,10 @@ title: x-color's blog
 
 menu:
   main:
-    - identifier: about
-      name: About
-      url: /posts/about
-      weight: 1
+    # - identifier: about
+    #   name: About
+    #   url: /posts/about
+    #   weight: 1
     - identifier: posts
       name: Posts
       url: /posts/
@@ -60,9 +60,9 @@ params:
     # imageWidth: 120
     # imageHeight: 120
     buttons:
-      - name: About
-        url: posts/about
-        weight: 1
+      # - name: About
+      #   url: posts/about
+      #   weight: 1
       - name: Posts
         url: posts
         weight: 2
