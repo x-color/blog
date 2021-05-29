@@ -1,0 +1,96 @@
+theme: PaperMod
+paginate: 5
+title: x-color's blog
+
+menu:
+  main:
+    - identifier: about
+      name: About
+      url: /posts/about
+      weight: 1
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 2
+    - identifier: archives
+      name: Archives
+      url: /archives/
+      weight: 3
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 4
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+# googleAnalytics: UA-123-45
+
+minify:
+  disableXML: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  author: x-color
+  defaultTheme: auto
+  ShowShareButtons: true
+  ShowReadingTime: true
+  displayFullLangName: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowToc: true
+  TocOpen: true
+
+  profileMode:
+    enabled: true
+    title: x-color
+    subtitle: I'm AWS engineer and Gopher!!
+    imageUrl: /images/icon.jpg
+    imageTitle: my image
+    # imageWidth: 120
+    # imageHeight: 120
+    buttons:
+      - name: About
+        url: posts/about
+        weight: 1
+      - name: Posts
+        url: posts
+        weight: 2
+      - name: Tags
+        url: tags
+        weight: 3
+
+  socialIcons:
+    - name: github
+      url: https://github.com/x-color
+    - name: zenn
+      url: https://zenn.dev/x_color
+    - name: note
+      url: https://note.com/xcolor
+    - name: qiita
+      url: https://qiita.com/x-color
+    - name: RsS
+      url: index.xml
+
+  mainSections:
+    - idea
+    - tech
+    - posts
+
+taxonomies:
+  tag: tags
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
