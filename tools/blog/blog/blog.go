@@ -130,28 +130,26 @@ func BuildZennArticle(configFilename string) (string, error) {
 	return fmt.Sprintf("---\n%s---%s", out, post.content), nil
 }
 
-func Publish(postFiles []string) error {
-	if postFiles == nil {
-		return nil
+func Publish(postFile string) (bool, error) {
+	post, err := readPost(postFile)
+	if err != nil {
+		return false, err
 	}
 
-	for _, f := range postFiles {
-		post, err := readPost(f)
-		if err != nil {
-			return err
-		}
-		published, err := afterPublicationDate(post.config.Date)
-		if err != nil {
-			return err
-		}
-		if !post.config.Published && published {
-			post.config.Published = true
-			if err := savePost(f, post); err != nil {
-				return err
-			}
-		}
+	if post.config.Published {
+		return false, nil
 	}
-	return nil
+
+	published, err := afterPublicationDate(post.config.Date)
+	if err != nil {
+		return false, err
+	}
+	if !published {
+		return false, nil
+	}
+	post.config.Published = true
+
+	return true, savePost(postFile, post)
 }
 
 func afterPublicationDate(date string) (bool, error) {

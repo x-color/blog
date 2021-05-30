@@ -3,6 +3,7 @@ package cmd
 import (
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/x-color/blog/tools/blog/blog"
@@ -18,7 +19,16 @@ func runPublishCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	return blog.Publish(postFiles)
+	for _, f := range postFiles {
+		published, err := blog.Publish(f)
+		if err != nil {
+			return err
+		}
+		if published {
+			cmd.Println(strings.TrimSuffix(filepath.Base(f), filepath.Ext(f)))
+		}
+	}
+	return nil
 }
 
 func newPublishCmd() *cobra.Command {
