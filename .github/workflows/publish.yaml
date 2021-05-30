@@ -69,25 +69,22 @@ jobs:
       - name: Set Env
         if: ${{ steps.check_updates.outputs.updates == 'true' }}
         run: |
-          echo "HUGO_UPDATES<<EOF" >> $GITHUB_ENV
+          echo "UPDATES<<EOF" >> $GITHUB_ENV
+          echo "Hugo:" >> $GITHUB_ENV
           cat hugo_updates >> $GITHUB_ENV
-          echo EOF >> $GITHUB_ENV
-
-          echo "ZENN_UPDATES<<EOF" >> $GITHUB_ENV
+          echo "Zenn:" >> $GITHUB_ENV
           cat zenn_updates >> $GITHUB_ENV
-          echo EOF >> $GITHUB_ENV
-
-          echo "QIITA_UPDATES<<EOF" >> $GITHUB_ENV
+          echo "Qiita:" >> $GITHUB_ENV
           cat qiita_updates >> $GITHUB_ENV
           echo EOF >> $GITHUB_ENV
 
       - name: Slack Notification
-        if: ${{ success() }}
+        if: ${{ steps.check_updates.outputs.updates == 'true' }}
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: github-notify
           SLACK_COLOR: green
-          SLACK_MESSAGE: Hugo:\n${{ env.HUGO_UPDATES }}\nZenn:\n${{ env.ZENN_UPDATES }}\nQiita:\n${{ env.QIITA_UPDATES }}
+          SLACK_MESSAGE: ${{ env.UPDATES }}
           SLACK_TITLE: Published
           SLACK_USERNAME: GitHub Actions(x-color/blog)
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
