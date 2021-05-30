@@ -25,7 +25,7 @@ func runPostCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 
-		if !content.Edited || !content.Private {
+		if !content.Edited || content.Private {
 			continue
 		}
 
