@@ -32,7 +32,7 @@ buildDrafts: false
 buildFuture: false
 buildExpired: false
 enableEmoji: true
-# googleAnalytics: UA-123-45
+googleAnalytics: G-69TJ16PVTD
 
 minify:
   disableXML: true
