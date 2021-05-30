@@ -60,11 +60,14 @@ jobs:
           TOKEN: ${{ secrets.QIITA_TOKEN }}
 
       - name: Check updates
-        id: publish_checker
-        run: "[ -s hugo_updates -o -s zenn_updates -o -s qiita_updates ]"
+        id: check_updates
+        run: \
+          if [ -s hugo_updates -o -s zenn_updates -o -s qiita_updates ]; then
+            echo "::set-output name=updates::true"
+          fi
 
       - name: Set Env
-        if: ${{ success() }}
+        if: ${{ steps.check_updates.outputs.updates == 'true' }}
         run: \
           echo "HUGO_UPDATES<<EOF" >> $GITHUB_ENV
           cat hugo_updates >> $GITHUB_ENV
@@ -88,7 +91,3 @@ jobs:
           SLACK_TITLE: Published
           SLACK_USERNAME: GitHub Actions(x-color/blog)
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-      - name: Handle the failure that no articles are published
-        if: ${{ failure() && steps.publish_checker.outcome == 'failure' }}
-        run: echo "No articles are published"
