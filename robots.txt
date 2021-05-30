@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://x-color.github.io/blog/sitemap.xml
