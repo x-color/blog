@@ -1,40 +1,53 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/x-color/blog/tools/blog/blog"
 )
 
 func runPostCmd(cmd *cobra.Command, args []string) error {
-	title := args[0]
-
-	configPath := fmt.Sprintf("config/qiita/%s.yaml", title)
-	content, err := blog.BuildQiitaArticle(configPath)
+	cd, err := os.Getwd()
+	if err != nil {
+		return err
+	}
+	configFiles, err := filepath.Glob(filepath.Join(cd, "config/qiita", "*"))
 	if err != nil {
 		return err
 	}
 
-	if !content.Edited || !content.Private {
-		cmd.Println("Skip")
-		return nil
-	}
+	for _, configPath := range configFiles {
+		content, err := blog.BuildQiitaArticle(configPath)
+		if err != nil {
+			return err
+		}
 
-	id, err := blog.PostArticleToQiita(content, os.Getenv("TOKEN"))
-	if err != nil {
-		return err
-	}
+		if !content.Edited || !content.Private {
+			continue
+		}
 
-	return blog.UpdateQiitaArticleConf(configPath, id, content.Hash)
+		id, err := blog.PostArticleToQiita(content, os.Getenv("TOKEN"))
+		if err != nil {
+			return err
+		}
+		cmd.Println(strings.TrimRight(filepath.Base(configPath), ".yaml"))
+
+		if err = blog.UpdateQiitaArticleConf(configPath, id, content.Hash); err != nil {
+			return err
+		}
+
+	}
+	return nil
 }
 
 func newPostCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "post <title>",
-		Short: "Post an article to Qiita",
-		Args:  cobra.ExactArgs(1),
+		Use:   "post",
+		Short: "Post articles to Qiita",
+		Args:  cobra.NoArgs,
 		RunE:  runPostCmd,
 	}
 
