@@ -61,14 +61,14 @@ jobs:
 
       - name: Check updates
         id: check_updates
-        run: \
+        run: |
           if [ -s hugo_updates -o -s zenn_updates -o -s qiita_updates ]; then
             echo "::set-output name=updates::true"
           fi
 
       - name: Set Env
         if: ${{ steps.check_updates.outputs.updates == 'true' }}
-        run: \
+        run: |
           echo "HUGO_UPDATES<<EOF" >> $GITHUB_ENV
           cat hugo_updates >> $GITHUB_ENV
           echo EOF >> $GITHUB_ENV
