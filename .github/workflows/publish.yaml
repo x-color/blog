@@ -37,7 +37,7 @@ jobs:
           git add -u content/posts articles
           git diff --cached --name-only content/posts > tmp && cut -f3 -d '/' tmp > hugo_updates
           git diff --cached --name-only articles > tmp && cut -f2 -d '/' tmp > zenn_updates
-          git diff --cached --quiet || git commit -m "Publish articles [skip ci]" && git push origin main
+          git diff --cached --quiet || git commit -m "Publish articles [skip ci]" && git push origin master
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
