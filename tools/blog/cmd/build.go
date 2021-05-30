@@ -26,12 +26,13 @@ func runBuildCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 
-		articlePath := fmt.Sprintf("articles/%s.md", strings.TrimRight(filepath.Base(configPath), ".yaml"))
+		title := strings.TrimSuffix(filepath.Base(configPath), filepath.Ext(configPath))
+		articlePath := fmt.Sprintf("articles/%s.md", title)
 		err = os.WriteFile(articlePath, []byte(content), 0644)
 		if err != nil {
 			return err
 		}
-		cmd.Println(articlePath)
+		cmd.Println(title)
 	}
 
 	return nil

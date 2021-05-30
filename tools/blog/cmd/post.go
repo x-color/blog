@@ -33,7 +33,7 @@ func runPostCmd(cmd *cobra.Command, args []string) error {
 		if err != nil {
 			return err
 		}
-		cmd.Println(strings.TrimRight(filepath.Base(configPath), ".yaml"))
+		cmd.Println(strings.TrimSuffix(filepath.Base(configPath), filepath.Ext(configPath)))
 
 		if err = blog.UpdateQiitaArticleConf(configPath, id, content.Hash); err != nil {
 			return err
