@@ -1,0 +1,93 @@
+name: publish
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+
+      - name: Setup tool
+        run: \
+          mkdir bin
+          cd tools/blog
+          go build -o ../../bin/blog .
+          cd ../../
+
+      - name: Publish articles
+        run: ./bin/blog publish
+
+      - name: Build Zenn
+        run: ./bin/blog build
+
+      - name: Push published articles
+        run: |
+          git config --local user.email "36035885+x-color@users.noreply.github.com"
+          git config --local user.name "x-color"
+          git add -u content/posts articles
+          git diff --cached content/posts --name-only > tmp && cut -f3 -d '/' tmp > hugo_updates
+          git diff --cached articles --name-only > tmp && cut -f2 -d '/' tmp > zenn_updates
+          git diff --cached --quiet || git commit -m "Publish articles [skip ci]" && git push origin main
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.83.1'
+
+      - name: Build Hugo
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/master'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+
+      - name: Post Qiita
+        run: ./bin/blog post > qiita_updates
+        env:
+          TOKEN: ${{ secrets.QIITA_TOKEN }}
+
+      - name: Check updates
+        run: "[ -s hugo_updates -o -s zenn_updates -o -s qiita_updates ]"
+
+      - name: Set Env
+        if: ${{ success() }}
+        run: \
+          echo "HUGO_UPDATES<<EOF" >> $GITHUB_ENV
+          cat hugo_updates >> $GITHUB_ENV
+          echo EOF >> $GITHUB_ENV
+
+          echo "ZENN_UPDATES<<EOF" >> $GITHUB_ENV
+          cat zenn_updates >> $GITHUB_ENV
+          echo EOF >> $GITHUB_ENV
+
+          echo "QIITA_UPDATES<<EOF" >> $GITHUB_ENV
+          cat qiita_updates >> $GITHUB_ENV
+          echo EOF >> $GITHUB_ENV
+
+      - name: Slack Notification
+        if: ${{ success() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: github-notify
+          SLACK_COLOR: green
+          SLACK_MESSAGE: Hugo:\n${{ env.HUGO_UPDATES }}\nZenn:\n${{ env.ZENN_UPDATES }}\nQiita:\n${{ env.QIITA_UPDATES }}
+          SLACK_TITLE: Published
+          SLACK_USERNAME: GitHub Actions(x-color/blog)
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
