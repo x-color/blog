@@ -2,6 +2,7 @@ package blog
 
 import (
 	"bytes"
+	"crypto/sha256"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -171,15 +172,18 @@ type qiitaPostContent struct {
 	Tags    []qiitaPostContentTag `json:"tags,omitempty"`
 	Title   string                `json:"title,omitempty"`
 	id      string
+	Hash    string
+	Edited  bool
 }
 
 type qiitaConfig struct {
 	PostPath string           `yaml:"post_path,omitempty"`
 	Replaces []replaceMapping `yaml:"replaces,omitempty"`
 	ID       string           `yaml:"id,omitempty"`
+	Hash     string           `yaml:"hash,omitempty"`
 }
 
-func UpdateQiitaArticleID(configFilename, id string) error {
+func UpdateQiitaArticleConf(configFilename, id, hash string) error {
 	b, err := os.ReadFile(configFilename)
 	if err != nil {
 		return err
@@ -190,6 +194,7 @@ func UpdateQiitaArticleID(configFilename, id string) error {
 		return err
 	}
 	config.ID = id
+	config.Hash = hash
 
 	s, err := yamlMarshalWithIndent(config)
 	if err != nil {
@@ -228,6 +233,11 @@ func BuildQiitaArticle(configFilename string) (qiitaPostContent, error) {
 		Body:    replaceText(post.content, config.Replaces),
 		id:      config.ID,
 	}
+
+	h := sha256.New()
+	h.Write([]byte(fmt.Sprintf("%v %v %v", content.Title, content.Tags, content.Body)))
+	content.Hash = fmt.Sprintf("%x", h.Sum(nil))
+	content.Edited = content.Hash != config.Hash
 
 	return content, nil
 }

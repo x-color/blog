@@ -17,7 +17,7 @@ func runPostCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	if !content.Private {
+	if !content.Edited || !content.Private {
 		cmd.Println("Skip")
 		return nil
 	}
@@ -27,7 +27,7 @@ func runPostCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	return blog.UpdateQiitaArticleID(configPath, id)
+	return blog.UpdateQiitaArticleConf(configPath, id, content.Hash)
 }
 
 func newPostCmd() *cobra.Command {
