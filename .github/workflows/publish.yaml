@@ -23,7 +23,6 @@ jobs:
 
       - name: Setup tool
         run: \
-          mkdir bin
           cd tools/blog
           go build -o ../../bin/blog .
           cd ../../
