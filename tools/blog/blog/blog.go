@@ -157,6 +157,8 @@ func afterPublicationDate(date string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
+	location := time.FixedZone("Asia/Tokyo", int((9 * time.Hour).Seconds()))
+	publishDate = publishDate.In(location).Add(-9 * time.Hour)
 	return time.Now().UTC().After(publishDate.UTC()), nil
 }
 
