@@ -6,7 +6,7 @@ topics:
   - aws
   - cloudformation
   - openpolicyagent
-published: false
+published: true
 ---
 
 # タグ付けを忘れがち

@@ -5,7 +5,7 @@ tags:
   - cloudformation
   - openpolicyagent
 date: "2021-05-31T10:00:00+09:00"
-published: false
+published: true
 ---
 
 # タグ付けを忘れがち
