@@ -4,6 +4,34 @@
     <title>Tags on x-color&#39;s blog</title>
     <link>https://x-color.github.io/blog/tags/</link>
     <description>Recent content in Tags on x-color&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="https://x-color.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 31 May 2021 10:00:00 +0900</lastBuildDate><atom:link href="https://x-color.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>aws</title>
+      <link>https://x-color.github.io/blog/tags/aws/</link>
+      <pubDate>Mon, 31 May 2021 10:00:00 +0900</pubDate>
+      
+      <guid>https://x-color.github.io/blog/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cloudformation</title>
+      <link>https://x-color.github.io/blog/tags/cloudformation/</link>
+      <pubDate>Mon, 31 May 2021 10:00:00 +0900</pubDate>
+      
+      <guid>https://x-color.github.io/blog/tags/cloudformation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>openpolicyagent</title>
+      <link>https://x-color.github.io/blog/tags/openpolicyagent/</link>
+      <pubDate>Mon, 31 May 2021 10:00:00 +0900</pubDate>
+      
+      <guid>https://x-color.github.io/blog/tags/openpolicyagent/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
