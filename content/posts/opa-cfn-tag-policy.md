@@ -1,10 +1,10 @@
 ---
 title: CloudFormationで作成するリソースのタグ付けを強制する
-date: 2021-05-31T08:00:00+09:00
 tags:
   - aws
   - cloudformation
   - openpolicyagent
+date: "2021-05-31T10:00:00+09:00"
 published: false
 ---
 
