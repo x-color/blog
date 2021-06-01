@@ -1,10 +1,10 @@
 ---
-title: "Proxy下のUbuntuでGitを最新版にアップデートするまで"
-date: 2021-06-02T08:45:00+09:00
+title: Proxy下のUbuntuでGitを最新版にアップデートするまで
 tags:
   - git
   - ubuntu
-published: false
+date: "2021-06-02T08:45:00+09:00"
+published: true
 ---
 
 # 結論

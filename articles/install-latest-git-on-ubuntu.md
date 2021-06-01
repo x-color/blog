@@ -5,7 +5,7 @@ type: idea
 topics:
   - git
   - ubuntu
-published: false
+published: true
 ---
 
 # 結論
