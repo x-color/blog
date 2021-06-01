@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://x-color.github.io/blog/tags/git/</loc>
+    <lastmod>2021-06-02T08:45:00+09:00</lastmod>
+  </url><url>
+    <loc>https://x-color.github.io/blog/posts/</loc>
+    <lastmod>2021-06-02T08:45:00+09:00</lastmod>
+  </url><url>
+    <loc>https://x-color.github.io/blog/posts/install-latest-git-on-ubuntu/</loc>
+    <lastmod>2021-06-02T08:45:00+09:00</lastmod>
+  </url><url>
+    <loc>https://x-color.github.io/blog/tags/</loc>
+    <lastmod>2021-06-02T08:45:00+09:00</lastmod>
+  </url><url>
+    <loc>https://x-color.github.io/blog/tags/ubuntu/</loc>
+    <lastmod>2021-06-02T08:45:00+09:00</lastmod>
+  </url><url>
+    <loc>https://x-color.github.io/blog/</loc>
+    <lastmod>2021-06-02T08:45:00+09:00</lastmod>
+  </url><url>
     <loc>https://x-color.github.io/blog/tags/aws/</loc>
     <lastmod>2021-05-31T10:00:00+09:00</lastmod>
   </url><url>
@@ -12,15 +30,6 @@
     <lastmod>2021-05-31T10:00:00+09:00</lastmod>
   </url><url>
     <loc>https://x-color.github.io/blog/tags/openpolicyagent/</loc>
-    <lastmod>2021-05-31T10:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://x-color.github.io/blog/posts/</loc>
-    <lastmod>2021-05-31T10:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://x-color.github.io/blog/tags/</loc>
-    <lastmod>2021-05-31T10:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://x-color.github.io/blog/</loc>
     <lastmod>2021-05-31T10:00:00+09:00</lastmod>
   </url><url>
     <loc>https://x-color.github.io/blog/archives/</loc>

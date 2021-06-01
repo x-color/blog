@@ -5,7 +5,24 @@
     <link>https://x-color.github.io/blog/posts/</link>
     <description>Recent content in Posts on x-color&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 31 May 2021 10:00:00 +0900</lastBuildDate><atom:link href="https://x-color.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Jun 2021 08:45:00 +0900</lastBuildDate><atom:link href="https://x-color.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Proxy下のUbuntuでGitを最新版にアップデートするまで</title>
+      <link>https://x-color.github.io/blog/posts/install-latest-git-on-ubuntu/</link>
+      <pubDate>Wed, 02 Jun 2021 08:45:00 +0900</pubDate>
+      
+      <guid>https://x-color.github.io/blog/posts/install-latest-git-on-ubuntu/</guid>
+      <description>結論 最初に結論。下記コマンドで最新版にアップデート可能
+$ sudo -E add-apt-repository ppa:git-core/ppa $ sudo apt update $ sudo apt upgrade 以前にも別の開発環境の整備中に最新版にしたことがあったのだが、手順を忘れていたので、将来の自分のためにも解決に至るまでの流れを書いておく
+Git のデフォルトブランチ名を変更したい 新たな開発環境（Ubuntu）の整備をしていた際に、「Git のデフォルトブランチの名前をmainにしないとなぁ」と思い、下記のコマンドでデフォルトブランチを変更・・・
+$ git config --global init.defaultBranch main $ git init $ git branch * master ・・・できてない。
+バージョンが古すぎて、デフォルトブランチ名の変更機能がないのかもと思い、バージョンを確認。
+$ git version git version 2.25.1 案の定、変更機能が追加される前のバージョンだった。（機能追加は、Git 2.28.0 以降） というわけで、Git のバージョンアップをしなければならない。
+Ubuntu に最新版をインストール 公式のドキュメント（Download for Linux and Unix）を参考にバージョンアップを実施。
+$ sudo add-apt-repository ppa:git-core/ppa $ sudo apt update $ sudo apt upgrade 上記でバージョンアップ完了かと思いきや、最初のコマンドで下記エラーが出てしまう。
+$ sudo add-apt-repository ppa:git-core/ppa Cannot add PPA: &amp;#39;ppa:~git-core/ubuntu/ppa&amp;#39; ERROR: &amp;#39;~git-core&amp;#39; user or team does not exist.</description>
+    </item>
+    
     <item>
       <title>CloudFormationで作成するリソースのタグ付けを強制する</title>
       <link>https://x-color.github.io/blog/posts/opa-cfn-tag-policy/</link>
