@@ -91,6 +91,8 @@ params:
     - idea
     - tech
     - posts
+  assets:
+    favicon: /blog/images/favicon.ico
 
 taxonomies:
   tag: tags
