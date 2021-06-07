@@ -1,10 +1,10 @@
 ---
-title: "CloudFormationで別アカウントのリソースをパラメータで受け取る際にやるべきこと"
-date: 2021-06-07T09:45:00+09:00
+title: CloudFormationで別アカウントのリソースをパラメータで受け取る際にやるべきこと
 tags:
   - aws
   - cloudformation
-published: false
+date: "2021-06-07T09:45:00+09:00"
+published: true
 ---
 
 # 何をするべきか
