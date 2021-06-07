@@ -5,7 +5,28 @@
     <link>https://x-color.github.io/blog/tags/cloudformation/</link>
     <description>Recent content in cloudformation on x-color&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 31 May 2021 10:00:00 +0900</lastBuildDate><atom:link href="https://x-color.github.io/blog/tags/cloudformation/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Jun 2021 09:45:00 +0900</lastBuildDate><atom:link href="https://x-color.github.io/blog/tags/cloudformation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CloudFormationで別アカウントのリソースをパラメータで受け取る際にやるべきこと</title>
+      <link>https://x-color.github.io/blog/posts/cfn-parameter-validation-fails/</link>
+      <pubDate>Mon, 07 Jun 2021 09:45:00 +0900</pubDate>
+      
+      <guid>https://x-color.github.io/blog/posts/cfn-parameter-validation-fails/</guid>
+      <description>何をするべきか 最初に結論。クロスアカウントのリソースをパラメータで受け取る際には、CloudFormationテンプレートのパラメータのタイプをString, CommaDelimitedListのどちらかにする必要がある。
+Parameters: VPC: Type: String SecurityGroups: Type: CommaDelimitedList なぜStringなどしか指定できないのか CloudFormationテンプレートのパラメータとしてVPCやSecurityGroupを受け取ろうとした場合、下記のように書くことが多いと思う。
+Parameters: VPC: Type: AWS::EC2::VPC::Id SecurityGroups: Type: List&amp;lt;AWS::EC2::SecurityGroup::Id&amp;gt; 単一アカウント上のリソースをパラメータに渡す際は上記がベストなのだが、クロスアカウントでリソースを参照しようとした場合、これではデプロイできない。
+実際に、上記のようなCloudFormationテンプレートを用意して、デプロイ時にパラメータに別アカウントのリソースを入力した場合、下記エラーが発生してしまう。
+Parameter validation failed: parameter value xxxx for parameter name yyy does not exists. CloudFormation はデプロイ前に入力値と指定されたパラメータタイプが一致しているかなどのバリデーションを実施してくれる。 この際、パラメータにAWS固有パラメータを指定していた場合は、対象のリソースが存在するかを確認してくれるのだが、ここで指定されたリソースが存在しないと判断された場合は、上記エラーが報告される。
+「別アカウントには存在するリソースなのに、なぜないと判断される？」と考えそうになるが、そもそもあるアカウント上から許可なく別アカウントのリソースの存在有無を確認できたらおかしい。 なので、CloudFormationは実行されたアカウント内に対象のリソースが存在するかどうかを確認する。
+というわけで、クロスアカウントでリソースを参照する場合、 CloudFormationのパラメータタイプにはリソースの存在確認が入るAWS 固有パラメータ（AWS::EC2::VPC::Id, List&amp;lt;AWS::EC2::SecurityGroup::Id&amp;gt;など）ではなく、StringかCommaDelimitedListを利用する必要がある。
+なお、この話はしっかりとAWS公式のドキュメントに記載されている。
+ テンプレートユーザーが異なる AWS アカウントからの入力値を入力できるようにする場合は、AWS 固有のタイプでパラメータを定義することはできません。代わりに、String タイプ (または CommaDelimitedList) タイプのパラメータを定義してください。
+ パラメータ - CloudFormation
+結論 CloudFormationのパラメータバリデーションは、単一アカウントのみであればとても助かる機能であり、パラメータの入力ミスを減らしてくれる。 しかし、クロスアカウントでリソース参照する場合には使うことができないので、
+Parameters: VPC: Type: AWS::EC2::VPC::Id SecurityGroups: Type: List&amp;lt;AWS::EC2::SecurityGroup::Id&amp;gt; ではなく、
+Parameters: VPC: Type: String SecurityGroups: Type: CommaDelimitedList としましょう。</description>
+    </item>
+    
     <item>
       <title>CloudFormationで作成するリソースのタグ付けを強制する</title>
       <link>https://x-color.github.io/blog/posts/opa-cfn-tag-policy/</link>
