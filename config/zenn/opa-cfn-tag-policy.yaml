@@ -6,5 +6,5 @@ type: "tech"
 replaces:
   - from: '<a href="https://github.com/x-color/opa-cfn-tag-policy"><img src="https://github-link-card.s3.ap-northeast-1.amazonaws.com/x-color/opa-cfn-tag-policy.png" width="460px"></a>'
     to: "[![](https://storage.googleapis.com/zenn-user-upload/9ed9b08bf7cc900a3db75f65.png =480x)](https://github.com/x-color/opa-cfn-tag-policy)"
-  - from: '```rego'
-    to: '```r'
+  - from: "```rego"
+    to: "```r"
