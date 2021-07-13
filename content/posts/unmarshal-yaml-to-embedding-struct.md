@@ -1,9 +1,9 @@
 ---
 title: '[Go] YAMLファイルを埋め込み構造体に読み込む'
-date: 2021-07-13T08:30:00+09:00
 tags:
-    - golang
-published: false
+  - golang
+date: "2021-07-13T08:30:00+09:00"
+published: true
 ---
 
 以前、Go言語でYAMLファイルを埋め込み構造体に読み込もうとした際に、JSONを読み込むのと同じように実装したらうまく読み込めなかったことがあった。
