@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>golang on x-color&#39;s blog</title>
+    <link>https://x-color.github.io/blog/tags/golang/</link>
+    <description>Recent content in golang on x-color&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 13 Jul 2021 08:30:00 +0900</lastBuildDate><atom:link href="https://x-color.github.io/blog/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Go] YAMLファイルを埋め込み構造体に読み込む</title>
+      <link>https://x-color.github.io/blog/posts/unmarshal-yaml-to-embedding-struct/</link>
+      <pubDate>Tue, 13 Jul 2021 08:30:00 +0900</pubDate>
+      
+      <guid>https://x-color.github.io/blog/posts/unmarshal-yaml-to-embedding-struct/</guid>
+      <description>以前、Go言語でYAMLファイルを埋め込み構造体に読み込もうとした際に、JSONを読み込むのと同じように実装したらうまく読み込めなかったことがあった。 その時調べた内容をまとめておく。
+結論 このようなYAMLファイルがあった場合
+# tmp.yaml wheels: 4 tons: 10 下記のように構造体の埋め込みフィールドにinlineタグをつけることで埋め込み構造体に読み込むことができる。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;os&amp;#34; &amp;#34;gopkg.in/yaml.v2&amp;#34; ) type Car struct { Wheels int `yaml:&amp;#34;wheels&amp;#34;` } type Truck struct { // 埋め込み のフィールドに &amp;#39;inline&amp;#39; タグをつける 	Car `yaml:&amp;#34;,inline&amp;#34;` Tons int `yaml:&amp;#34;tons&amp;#34;` } func main() { truck := Truck{} b, _ := os.ReadFile(&amp;#34;tmp.yaml&amp;#34;) yaml.Unmarshal(b, &amp;amp;truck) fmt.Printf(&amp;#34;Wheels: %+v\n&amp;#34;, truck.Wheels) fmt.Printf(&amp;#34;Tons: %v\n&amp;#34;, truck.Tons) } 下記が実行結果
+$ go run main.go Wheels: 4 Tons: 10 そもそもJSONではもっと簡単 JSONでは特にタグなどを気にする必要なく埋め込み構造体に読み込み可能。</description>
+    </item>
+    
+  </channel>
+</rss>

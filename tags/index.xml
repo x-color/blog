@@ -5,7 +5,16 @@
     <link>https://x-color.github.io/blog/tags/</link>
     <description>Recent content in Tags on x-color&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 07 Jun 2021 09:45:00 +0900</lastBuildDate><atom:link href="https://x-color.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Jul 2021 08:30:00 +0900</lastBuildDate><atom:link href="https://x-color.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang</title>
+      <link>https://x-color.github.io/blog/tags/golang/</link>
+      <pubDate>Tue, 13 Jul 2021 08:30:00 +0900</pubDate>
+      
+      <guid>https://x-color.github.io/blog/tags/golang/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>aws</title>
       <link>https://x-color.github.io/blog/tags/aws/</link>
