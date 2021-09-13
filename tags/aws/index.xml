@@ -13,18 +13,19 @@
       
       <guid>https://x-color.github.io/blog/posts/cfn-parameter-validation-fails/</guid>
       <description>何をするべきか 最初に結論。クロスアカウントのリソースをパラメータで受け取る際には、CloudFormationテンプレートのパラメータのタイプをString, CommaDelimitedListのどちらかにする必要がある。
-Parameters: VPC: Type: String SecurityGroups: Type: CommaDelimitedList なぜStringなどしか指定できないのか CloudFormationテンプレートのパラメータとしてVPCやSecurityGroupを受け取ろうとした場合、下記のように書くことが多いと思う。
+Parameters: VPC: Type: String SecurityGroups: Type: CommaDelimitedList なぜStringなどしか指定できないのか CloudFormationテンプレートのパラメータとしてVPCやSecurityGroupを受け取ろうとした場合、下記のように書くことが多い。
 Parameters: VPC: Type: AWS::EC2::VPC::Id SecurityGroups: Type: List&amp;lt;AWS::EC2::SecurityGroup::Id&amp;gt; 単一アカウント上のリソースをパラメータに渡す際は上記がベストなのだが、クロスアカウントでリソースを参照しようとした場合、これではデプロイできない。
-実際に、上記のようなCloudFormationテンプレートを用意して、デプロイ時にパラメータに別アカウントのリソースを入力した場合、下記エラーが発生してしまう。
+実際に、上記のようなCloudFormationテンプレートを用意して、デプロイ時のパラメータに別アカウントのリソースを入力した場合、下記エラーが発生してしまう。
 Parameter validation failed: parameter value xxxx for parameter name yyy does not exists. CloudFormation はデプロイ前に入力値と指定されたパラメータタイプが一致しているかなどのバリデーションを実施してくれる。 この際、パラメータにAWS固有パラメータを指定していた場合は、対象のリソースが存在するかを確認してくれるのだが、ここで指定されたリソースが存在しないと判断された場合は、上記エラーが報告される。
-「別アカウントには存在するリソースなのに、なぜないと判断される？」と考えそうになるが、そもそもあるアカウント上から許可なく別アカウントのリソースの存在有無を確認できたらおかしい。 なので、CloudFormationは実行されたアカウント内に対象のリソースが存在するかどうかを確認する。
-というわけで、クロスアカウントでリソースを参照する場合、 CloudFormationのパラメータタイプにはリソースの存在確認が入るAWS 固有パラメータ（AWS::EC2::VPC::Id, List&amp;lt;AWS::EC2::SecurityGroup::Id&amp;gt;など）ではなく、StringかCommaDelimitedListを利用する必要がある。
+「別アカウントには存在するリソースなのに、なぜないと判断されるのか」と考えそうになるが、そもそもあるアカウント上から許可なく別アカウントのリソースの存在有無を確認できたらおかしい。 なので、CloudFormationは実行されたアカウント内に対象のリソースが存在するかどうかを確認する。
+そのため、クロスアカウントでリソースを参照する場合は、パラメータタイプにAWS固有パラメータ（AWS::EC2::VPC::Idなど）は指定できない。 代わりに、StringかCommaDelimitedListを利用する必要がある。
 なお、この話はしっかりとAWS公式のドキュメントに記載されている。
  テンプレートユーザーが異なる AWS アカウントからの入力値を入力できるようにする場合は、AWS 固有のタイプでパラメータを定義することはできません。代わりに、String タイプ (または CommaDelimitedList) タイプのパラメータを定義してください。
  パラメータ - CloudFormation
-結論 CloudFormationのパラメータバリデーションは、単一アカウントのみであればとても助かる機能であり、パラメータの入力ミスを減らしてくれる。 しかし、クロスアカウントでリソース参照する場合には使うことができないので、
-Parameters: VPC: Type: AWS::EC2::VPC::Id SecurityGroups: Type: List&amp;lt;AWS::EC2::SecurityGroup::Id&amp;gt; ではなく、
-Parameters: VPC: Type: String SecurityGroups: Type: CommaDelimitedList としましょう。</description>
+結論 CloudFormationのパラメータバリデーションは、単一アカウントのみであればとても助かる機能であり、パラメータの入力ミスを減らしてくれる。 しかし、クロスアカウントでリソース参照する場合には使うことができないので、下記のようにする必要がある。
+修正前
+Parameters: VPC: Type: AWS::EC2::VPC::Id SecurityGroups: Type: List&amp;lt;AWS::EC2::SecurityGroup::Id&amp;gt; 修正後
+Parameters: VPC: Type: String SecurityGroups: Type: CommaDelimitedList </description>
     </item>
     
     <item>
@@ -33,18 +34,18 @@ Parameters: VPC: Type: String SecurityGroups: Type: CommaDelimitedList としま
       <pubDate>Mon, 31 May 2021 10:00:00 +0900</pubDate>
       
       <guid>https://x-color.github.io/blog/posts/opa-cfn-tag-policy/</guid>
-      <description>タグ付けを忘れがち 普段の業務では単一の AWS アカウントを複数のプロダクトの開発に利用している。 その場合に気になってくるのがコスト。 気づいたときには「今月の請求が。。」みたいなことにならないためにも、どのプロダクトがどのリソースを利用しており、それぞれどの程度利用料が発生しているのかを把握することはとても重要。
-このニーズを満たすために、AWS ではコスト配分タグという機能がある。これを用いることで、タグごとにリソースのコストを把握する事ができる。
+      <description>タグ付けを忘れがち 普段の業務では単一の AWS アカウントを複数のプロダクトの開発に利用している。 その場合、気になってくるのがコスト。 気づいたときには「今月の請求が高すぎる！」みたいなことにならないためにも、どのプロダクトがどのリソースを利用しており、それぞれどの程度利用料が発生しているのかを把握することはとても重要。
+このニーズを満たすために、AWS ではコスト配分タグという機能がある。これを用いることで、タグごとにリソースのコストを把握できる。
 自分は普段、なにかを構築する際には CloudFormation を利用する事が多い。 コスト配分タグを最大限活用するためにも可能な限りリソースにはタグ付けをするようにしている。
-しかし、多くのリソースを構築していると一部リソースのタグ付けを忘れてしまうことがある。おかげでタグで追跡できないリソースが作成され、「これコストかかっているけど、どのプロダクトのリソース？」といったことが発生する。
-※CloudFormation スタックのタグ付けの伝搬でいいのではと最初思っていたのだが、意外とタグが伝搬されないリソースが多いので各種リソースに明示的につけるようにしている。
+しかし、多くのリソースを構築していると一部リソースのタグ付けを忘れてしまうことがある。それにより、タグで追跡できないリソースが作成され、「これコストかかっているけど、どのプロダクトのリソースなのだろうか？」といったことが発生する。
+※CloudFormation スタックのタグ付けの伝搬でいいのではと最初思っていたのだが、意外とタグ伝搬されないリソースが多いので各種リソースに明示的につけるようにしている。
 忘れないために自動でテストしよう レビュー時に、テンプレートで定義されたすべてのリソースが正しくタグ付けされているかをチェックするのもいいが、そもそも「どのリソースはタグ付け可能だっけ？」となったりしてあまりにも大変。
-というわけで人の手を借りずに自動でチェックさせるために、タグ付け可能なリソースがすべて適切なタグ付けがされているかをテストするための仕組みをOpen Policy Agentを用いて実装した。
+というわけで人の手を借りずに自動でチェックさせるために、タグ付け可能なリソースがすべて適切なタグ付けされているかをテストするための仕組みをOpen Policy Agentを用いて実装した。
 
 ちなみに、CloudFormation は高頻度で更新がかかり、随時新たなリソースの追加やタグ付けがサポートされる。 そのため、このリポジトリでは GitHub Actions を利用して、CloudFormation の更新を追いかけ、更新があるたびにポリシーファイルを更新している。 利用する場合はなるべく最新版をダウンロードして利用してもらいたい。
 テストしてみる 実際に利用してみる。今回は、タグ付け可能なリソース全てに「System」タグが付けられていることをテストする。
 なお、ここにもサンプルのポリシーや CloudFormation テンプレートを用意している。
-テストのための準備 ディレクトリ構成は下記とする
+テストのための準備 ディレクトリ構成は下記とする。
 . ├── policy │ └── deny.rego # 実際のポリシーを定義 └── templates └── template.yaml # タグ付けされていないリソースが定義されたCloudFormationテンプレート テスト対象とする CloudFormation テンプレートは下記とする。（templates/template.yaml）
 AWSTemplateFormatVersion: 2010-09-09 Parameters: VpcCidr: Type: String Resources: VPC: Type: AWS::EC2::VPC Properties: CidrBlock: !Ref VpcCidr このテンプレートでは、指定された Cidr ブロックを持つ VPC を作成するが、「System」タグを付け忘れている。</description>
     </item>
