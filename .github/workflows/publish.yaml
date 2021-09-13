@@ -52,7 +52,7 @@ jobs:
         run: |
           git config --local user.email "36035885+x-color@users.noreply.github.com"
           git config --local user.name "x-color"
-          git add -u content/posts articles config/qiita
+          git add content/posts articles config/qiita
           git diff --cached --name-only content/posts > tmp && cut -f3 -d '/' tmp > hugo_updates
           git diff --cached --name-only articles > tmp && cut -f2 -d '/' tmp > zenn_updates
           git diff --cached --quiet || git commit -m "Publish articles [skip publish]" && git push origin master
