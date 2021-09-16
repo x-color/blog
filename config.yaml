@@ -5,10 +5,10 @@ title: x-color's blog
 
 menu:
   main:
-    # - identifier: about
-    #   name: About
-    #   url: /posts/about
-    #   weight: 1
+    - identifier: about
+      name: About
+      url: /posts/about
+      weight: 1
     - identifier: posts
       name: Posts
       url: /posts/
