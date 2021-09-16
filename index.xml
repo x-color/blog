@@ -5,7 +5,22 @@
     <link>https://x-color.github.io/blog/</link>
     <description>Recent content on x-color&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 13 Jul 2021 08:30:00 +0900</lastBuildDate><atom:link href="https://x-color.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Sep 2021 00:00:00 +0900</lastBuildDate><atom:link href="https://x-color.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>x-colorってどんな人？</title>
+      <link>https://x-color.github.io/blog/posts/about/</link>
+      <pubDate>Fri, 17 Sep 2021 00:00:00 +0900</pubDate>
+      
+      <guid>https://x-color.github.io/blog/posts/about/</guid>
+      <description>x-colorってどんな人？ 自己紹介 Goでの開発が好きなAWSエンジニア。 静かな夜を過ごすこと、風景や夜空などを眺めるのが好きで、のんびりゆったりしていたいと常日頃思っている。
+お仕事内容 仕事ではAWSを用いたサービス開発に携わっている。主にAWSを用いたインフラの設計や構築を担当している。 他にもCI/CDパイプラインの構築やGoを用いた各種ツールの作成、Pythonを用いたサーバレスシステムの開発なども担当している。
+インフラからアプリまでできることの幅が広いので、部内外のいろんなチームの支援に駆り出される事が多い。 AWSの設計支援だったり、アプリ開発の手伝いに行ったり、バグっているスクリプトの面倒を見に行ったりといろいろやっている。
+やっていきたいこと 自分は興味の幅が広いので、様々な技術に触れていきたいと常に思っている。 その中で誰かのためになるものを生み出せていけたらいいなと思っている。 また、不要な労力を払わなくていいような開発環境を整備するのも好き。（パイプラインや自動化など）
+というわけで、今後も下記をやっていきたい。
+ 様々な技術に触れていく ユーザのためになるサービスを開発していく 開発時に発生する様々な労力をなくしていく  ここで何を書いていくのか このブログには自分が試したり、業務の中で得た技術的知見などを主に投稿していく。 ここに投稿された記事を読む自分を含めた誰かのためになればいいなと思い、少しづつ投稿していく予定。 なお、技術的な話については、QiitaやZennなどにも同時投稿していく。
+各種アカウント  GitHub Qiita Zenn note 転職ドラフト  取得資格など  AWS Certified Advanced Networking - Specialty AWS Certified Security - Specialty AWS Certified DevOps Engineer - Professional AWS Certified Solutions Architect - Professional AWS Certified Developer - Associate AWS Certified SysOps Administrator - Associate AWS Certified Solutions Architect - Associate AWS Certified Cloud Practitioner 情報処理安全確保支援士試験 ネットワークスペシャリスト試験 データベーススペシャリスト試験 応用情報技術者試験 基本情報技術者試験   スキル  AWSを用いたサービス開発 Infrastructure as CodeやCI/CDなどを利用した開発環境整備  CloudFormation Terraform CodeBuild,CodePipeline etc&amp;hellip; GitHub Actions   下記プログラミング言語などを用いた開発  Go TypeScript JavaScript React Vue.</description>
+    </item>
+    
     <item>
       <title>[Go] YAMLファイルを埋め込み構造体に読み込む</title>
       <link>https://x-color.github.io/blog/posts/unmarshal-yaml-to-embedding-struct/</link>

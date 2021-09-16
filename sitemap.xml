@@ -2,19 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://x-color.github.io/blog/posts/</loc>
+    <lastmod>2021-09-17T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://x-color.github.io/blog/</loc>
+    <lastmod>2021-09-17T00:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://x-color.github.io/blog/posts/about/</loc>
+    <lastmod>2021-09-17T00:00:00+09:00</lastmod>
+  </url><url>
     <loc>https://x-color.github.io/blog/posts/unmarshal-yaml-to-embedding-struct/</loc>
     <lastmod>2021-07-13T08:30:00+09:00</lastmod>
   </url><url>
     <loc>https://x-color.github.io/blog/tags/golang/</loc>
     <lastmod>2021-07-13T08:30:00+09:00</lastmod>
   </url><url>
-    <loc>https://x-color.github.io/blog/posts/</loc>
-    <lastmod>2021-07-13T08:30:00+09:00</lastmod>
-  </url><url>
     <loc>https://x-color.github.io/blog/tags/</loc>
-    <lastmod>2021-07-13T08:30:00+09:00</lastmod>
-  </url><url>
-    <loc>https://x-color.github.io/blog/</loc>
     <lastmod>2021-07-13T08:30:00+09:00</lastmod>
   </url><url>
     <loc>https://x-color.github.io/blog/tags/aws/</loc>
