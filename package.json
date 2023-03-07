@@ -3,7 +3,7 @@
   "author": "x-color",
   "license": "MIT",
   "dependencies": {
-    "zenn-cli": "^0.1.80"
+    "zenn-cli": "^0.1.141"
   },
   "devDependencies": {
     "textlint": "^12.0.2",
